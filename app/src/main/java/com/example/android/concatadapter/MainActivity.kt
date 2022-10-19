@@ -14,27 +14,27 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = UserAdapter(config = AdsAdapterConfig(5)).apply {
-            setData(listOf("thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
-                ,"thinh"
+            setData(listOf("thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh",
+                "thinh"
             ))
 
             onclickEvent = {
                 addItem("value")
-                Toast.makeText(this@MainActivity, "addItem",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "addItem", Toast.LENGTH_SHORT).show()
             }
         }.get()
         recyclerView.adapter = adapter

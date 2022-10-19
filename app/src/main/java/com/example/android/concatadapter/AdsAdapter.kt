@@ -20,7 +20,15 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
     private val listData = mutableListOf<T?>()
 
     fun get(): ConcatAdapter {
-        return ConcatAdapter(BannerAdapter(""), this, NativeAdapter(""))
+        val concatAdapter = ConcatAdapter()
+        if (config.showBanner) {
+            concatAdapter.addAdapter(BannerAdapter(""))
+        }
+        concatAdapter.addAdapter(this)
+        if (config.showNative) {
+            concatAdapter.addAdapter(NativeAdapter(""))
+        }
+        return concatAdapter
     }
 
     fun deleteItem(index: Int) {
