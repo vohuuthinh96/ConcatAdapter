@@ -3,6 +3,7 @@ package com.example.android.concatadapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.concatadapter.databinding.ItemLoadMoreBinding
 import com.example.android.concatadapter.databinding.ItemUserBinding
 
 
@@ -16,8 +17,7 @@ class UserAdapter(config: AdsAdapterConfig = AdsAdapterConfig()) :
 
     var onclickEvent :((Int)-> Unit)?=null
 
-    inner class UserViewHolder(binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {}
-
+    inner class UserViewHolder(binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
@@ -33,5 +33,13 @@ class UserAdapter(config: AdsAdapterConfig = AdsAdapterConfig()) :
         holder.itemView.setOnClickListener {
             onclickEvent?.invoke(position)
         }
+    }
+
+    override fun getLoadMoreViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return LoadMoreViewHolder(ItemLoadMoreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    inner class LoadMoreViewHolder(binding: ItemLoadMoreBinding): RecyclerView.ViewHolder(binding.root) {
+
     }
 }

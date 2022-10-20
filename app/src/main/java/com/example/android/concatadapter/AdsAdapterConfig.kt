@@ -1,6 +1,5 @@
 package com.example.android.concatadapter
 
-import com.google.android.material.transition.platform.MaterialContainerTransform.ProgressThresholds
 
 
 /**
@@ -12,7 +11,8 @@ data class AdsAdapterConfig(
     val itemThresholds: Int = DEFAULT_THRESHOLDS,
     val showAdsInCenter: Boolean= true,
     val showBanner: Boolean = true,
-    val showNative: Boolean = true
+    val showNative: Boolean = true,
+    val loadMore: Boolean = true
 ) {
     companion object {
         const val DEFAULT_THRESHOLDS = 7
