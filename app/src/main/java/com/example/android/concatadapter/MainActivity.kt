@@ -19,36 +19,25 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler)
 
 
-        val adapter = UserAdapter(config = AdsAdapterConfig(5, showAdsInCenter = true)).apply {
+        val adapter = UserAdapter(config = AdsAdapterConfig(4, showAdsInCenter = true, showNative = false)).apply {
             setData(listOf(
                 "thinh",
                 "thinh",
                 "thinh",
                 "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",))
+            ))
 
             onclickEvent = {
                 addItem("value")
                 Toast.makeText(this@MainActivity, "addItem", Toast.LENGTH_SHORT).show()
             }
         }
-        recyclerView.layoutManager = AdsGridLayoutManager(this, 2, adapter.get())
+        recyclerView.layoutManager = AdsGridLayoutManager(this, 1, adapter.get())
         recyclerView.adapter = adapter.get()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0 && (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition() + VISIBLE_THRESHOLD >= (recyclerView.layoutManager as GridLayoutManager).itemCount) {
-                    if (!isLoading){
+                    if (!isLoading) {
                         loadNextPage(adapter)
                     }
                 }
@@ -57,11 +46,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     var isLoading = false
-    private fun loadNextPage(adapter: AdsAdapter<String,*>) {
+    private fun loadNextPage(adapter: UserAdapter) {
         isLoading = true
         adapter.loadMore()
         Handler(Looper.getMainLooper()).postDelayed({
-            adapter.addData(listOf("thinh","thinh"))
+            adapter.addData(listOf("thinh", "thinh"))
             isLoading = false
         }, 3000)
     }

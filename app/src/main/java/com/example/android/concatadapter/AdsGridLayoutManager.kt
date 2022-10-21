@@ -1,7 +1,6 @@
 package com.example.android.concatadapter
 
 import android.content.Context
-import android.util.Log
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 

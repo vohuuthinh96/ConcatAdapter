@@ -94,7 +94,7 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
         if (holder is NativeViewHolder) {
             holder.bindNativeViewHolder(holder, position)
         } else if (isInstanceOf(holder)) {
-            bindItemViewHolder(holder as Y, position)
+            bindItemViewHolder(holder as Y, position - listData.subList(0, position).filter { it == null }.size)
         }
     }
 
