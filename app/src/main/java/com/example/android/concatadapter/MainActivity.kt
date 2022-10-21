@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler)
 
 
-        val adapter = UserAdapter(config = AdsAdapterConfig(4, showAdsInCenter = true, showNative = false)).apply {
+        val adapter = UserAdapter(config = AdsAdapterConfig(4, showAdsInCenter = true, showNative = true)).apply {
             setData(listOf(
                 "thinh",
                 "thinh",

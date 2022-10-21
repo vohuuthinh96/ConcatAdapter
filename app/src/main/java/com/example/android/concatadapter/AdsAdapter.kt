@@ -94,7 +94,8 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
         if (holder is NativeViewHolder) {
             holder.bindNativeViewHolder(holder, position)
         } else if (isInstanceOf(holder)) {
-            bindItemViewHolder(holder as Y, position - listData.subList(0, position).filter { it == null }.size)
+            bindItemViewHolder(holder as Y,
+                position - listData.subList(0, position).filter { it == null }.size)
         }
     }
 
@@ -109,13 +110,13 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
         val listData = mutableListOf<T?>()
         if (config.showAdsInCenter) {
             data.forEachIndexed { index, appData ->
-                if (index > 0 && index % config.itemThresholds == 0) {
+                if (index > 0 && index % config.itemThresholds == 0 && index != data.size - 1) {
                     listData.add(null)
                 }
                 listData.add(appData)
             }
         } else {
-            this.listData.addAll(data)
+            listData.addAll(data)
         }
         return listData
     }
