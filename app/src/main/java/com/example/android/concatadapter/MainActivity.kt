@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "addItem", Toast.LENGTH_SHORT).show()
             }
         }
-        recyclerView.layoutManager = AdsGridLayoutManager(this, 1, adapter.get())
+        recyclerView.layoutManager = AdsGridLayoutManager(this, 3, adapter.get())
         recyclerView.adapter = adapter.get()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

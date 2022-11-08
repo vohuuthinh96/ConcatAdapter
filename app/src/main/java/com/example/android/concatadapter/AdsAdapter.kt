@@ -46,14 +46,16 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
     }
 
     fun deleteItem(index: Int) {
-        listData.removeAt(index)
-        notifyItemRemoved(index)
-        notifyItemRangeChanged(index, listData.size)
+        val realIndex = getRealIndex(index)
+        listData.removeAt(realIndex)
+        notifyItemRemoved(realIndex)
+        notifyItemRangeChanged(realIndex, listData.size)
     }
 
     fun updateItem(index: Int, item: T) {
-        listData[index] = item
-        notifyItemChanged(index)
+        val realIndex = getRealIndex(index)
+        listData[realIndex] = item
+        notifyItemChanged(realIndex)
     }
 
     fun addItem(item: T) {
@@ -78,6 +80,10 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
         notifyDataSetChanged()
     }
 
+    private fun getRealIndex(index: Int): Int{
+        return listData.indexOf(listData.mapNotNull { it }[index])
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_CENTER_NATIVE) {
             return NativeViewHolder(
@@ -99,12 +105,10 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
         }
     }
 
-
     private inline fun <reified Y> isInstanceOf(y: Y): Boolean = when (Y::class) {
         Y::class -> true
         else -> false
     }
-
 
     private fun getDataWithAdsItem(data: List<T>): Collection<T?> {
         val listData = mutableListOf<T?>()
