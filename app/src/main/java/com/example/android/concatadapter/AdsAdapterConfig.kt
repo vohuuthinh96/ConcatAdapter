@@ -12,7 +12,7 @@ data class AdsAdapterConfig(
     val showAdsInCenter: Boolean= true,
     val showBanner: Boolean = true,
     val showNative: Boolean = true,
-    val loadMore: Boolean = true
+    val loadMore: Boolean = false
 ) {
     companion object {
         const val DEFAULT_THRESHOLDS = 7

@@ -1,11 +1,10 @@
 package com.example.android.concatadapter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import androidx.recyclerview.widget.ConcatAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,30 +18,45 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler)
 
 
-        val adapter = UserAdapter(config = AdsAdapterConfig(4, showAdsInCenter = true, showNative = true)).apply {
-            setData(listOf(
-                "thinh",
-                "thinh",
-                "thinh",
-                "thinh",
-            ))
+        val adapter = UserAdapter(config = AdsAdapterConfig(4,
+            showAdsInCenter = true,
+            showNative = true,
+        loadMore = false)).apply {
+
 
             onclickEvent = {
-                addItem("value")
+                deleteItem(it)
                 Toast.makeText(this@MainActivity, "addItem", Toast.LENGTH_SHORT).show()
             }
         }
-        recyclerView.layoutManager = AdsGridLayoutManager(this, 3, adapter.get())
         recyclerView.adapter = adapter.get()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 && (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition() + VISIBLE_THRESHOLD >= (recyclerView.layoutManager as GridLayoutManager).itemCount) {
-                    if (!isLoading) {
-                        loadNextPage(adapter)
-                    }
-                }
+//                if (dy > 0 && (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition() + VISIBLE_THRESHOLD >= (recyclerView.layoutManager as GridLayoutManager).itemCount) {
+//                    if (!isLoading) {
+//                        loadNextPage(adapter)
+//                    }
+//                }
             }
         })
+        recyclerView.layoutManager = AdsGridLayoutManager(this, 3, adapter.get())
+
+        adapter.setData(listOf(
+            "thinh1",
+            "thinh2",
+            "thinh3",
+            "thinh4",
+            "thinh5",
+            "thinh6",
+            "thinh7",
+            "thinh8",
+            "thinh9",
+            "thinh10",
+            "thinh11",
+            "thinh12",
+            "thinh13",
+
+        ))
     }
 
     var isLoading = false

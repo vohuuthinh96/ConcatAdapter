@@ -4,12 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.TableRow
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.concatadapter.AdsAdapter.Companion.TYPE_BOTTOM_NATIVE
-import com.example.android.concatadapter.AdsAdapter.Companion.TYPE_HEADER_BANNER
 import com.example.android.concatadapter.databinding.ItemBannerBinding
 import com.example.android.concatadapter.databinding.ItemNativeBinding
 
@@ -24,6 +21,10 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
     private val listData = mutableListOf<T?>()
     private lateinit var adapter: ConcatAdapter
     private var loadMoreAdapter = LoadMoreAdapter()
+    var originalData = mutableListOf<T?>()
+        get() {
+            return listData.mapNotNull { it }.toMutableList()
+        }
 
     fun get(): ConcatAdapter {
         if (!this::adapter.isInitialized) {
@@ -59,14 +60,17 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
     }
 
     fun addItem(item: T) {
-        listData.add(item)
-        notifyItemInserted(listData.size)
+        addData(listOf(item))
     }
 
     fun addData(data: List<T>) {
         removeLoadMore()
-        listData.addAll(data)
-        notifyDataSetChanged()
+        val listSize = listData.size
+        val tempList = ArrayList(listData.mapNotNull { it })
+        tempList.addAll(data)
+        this.listData.clear()
+        this.listData.addAll(getDataWithAdsItem(tempList))
+        notifyItemRangeInserted(listSize, listData.size - listSize)
     }
 
     fun clearData() {
@@ -77,10 +81,10 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
     fun setData(data: List<T>) {
         this.listData.clear()
         this.listData.addAll(getDataWithAdsItem(data))
-        notifyDataSetChanged()
+        this.notifyDataSetChanged()
     }
 
-    private fun getRealIndex(index: Int): Int{
+    private fun getRealIndex(index: Int): Int {
         return listData.indexOf(listData.mapNotNull { it }[index])
     }
 
@@ -114,7 +118,7 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
         val listData = mutableListOf<T?>()
         if (config.showAdsInCenter) {
             data.forEachIndexed { index, appData ->
-                if (index > 0 && index % config.itemThresholds == 0 && index != data.size - 1) {
+                if (index > 0 && index % config.itemThresholds == 0) {
                     listData.add(null)
                 }
                 listData.add(appData)

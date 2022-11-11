@@ -15,8 +15,7 @@ class AdsGridLayoutManager(context: Context, spanCount: Int, concatAdapter: Conc
     init {
        spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return when(concatAdapter.getItemViewType(position)) {
-                    AdsAdapter.TYPE_CENTER_NATIVE, AdsAdapter.TYPE_ITEM -> 1
+                return when(concatAdapter.getItemViewType(position)) {AdsAdapter.TYPE_ITEM -> 1
                     else -> spanCount
                 }
             }

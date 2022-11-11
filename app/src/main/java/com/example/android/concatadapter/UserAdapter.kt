@@ -17,7 +17,7 @@ class UserAdapter(config: AdsAdapterConfig = AdsAdapterConfig()) :
 
     var onclickEvent :((Int)-> Unit)?=null
 
-    inner class UserViewHolder(binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class UserViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
@@ -33,6 +33,7 @@ class UserAdapter(config: AdsAdapterConfig = AdsAdapterConfig()) :
         holder.itemView.setOnClickListener {
             onclickEvent?.invoke(position)
         }
+        holder.binding.tvName.text = originalData[position]
     }
 
     override fun getLoadMoreViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
