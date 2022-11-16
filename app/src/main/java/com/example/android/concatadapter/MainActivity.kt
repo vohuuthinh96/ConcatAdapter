@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = UserAdapter(config = AdsAdapterConfig(4,
             showAdsInCenter = true,
-            showNative = true,
+            showNative = false,
         loadMore = false)).apply {
 
 
@@ -41,22 +41,12 @@ class MainActivity : AppCompatActivity() {
         })
         recyclerView.layoutManager = AdsGridLayoutManager(this, 3, adapter.get())
 
-        adapter.setData(listOf(
-            "thinh1",
-            "thinh2",
-            "thinh3",
-            "thinh4",
-            "thinh5",
-            "thinh6",
-            "thinh7",
-            "thinh8",
-            "thinh9",
-            "thinh10",
-            "thinh11",
-            "thinh12",
-            "thinh13",
+        val list = mutableListOf<String>()
 
-        ))
+        for (i in 1..100){
+            list.add("index =  $i")
+        }
+        adapter.setData(list)
     }
 
     var isLoading = false

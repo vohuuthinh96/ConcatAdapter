@@ -47,10 +47,11 @@ abstract class AdsAdapter<T, Y : RecyclerView.ViewHolder>(private var config: Ad
     }
 
     fun deleteItem(index: Int) {
-        val realIndex = getRealIndex(index)
-        listData.removeAt(realIndex)
-        notifyItemRemoved(realIndex)
-        notifyItemRangeChanged(realIndex, listData.size)
+        val tempList = ArrayList(listData.mapNotNull { it })
+        tempList.removeAt(index)
+        this.listData.clear()
+        this.listData.addAll(getDataWithAdsItem(tempList))
+        notifyDataSetChanged()
     }
 
     fun updateItem(index: Int, item: T) {
